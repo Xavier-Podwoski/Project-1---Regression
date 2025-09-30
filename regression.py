@@ -75,7 +75,6 @@ def train_and_evaluate(X_train, X_val, X_test, y_train, y_val, y_test, alpha: fl
         print_metrics(y_test, yt_pred, prefix="  ")
 
 def main():
-    # data path relative to this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     data_path = os.path.join(script_dir, os.pardir, "data", "ENB2012_data.xlsx")
     
@@ -87,7 +86,6 @@ def main():
     print("  Val:  ", X_val.shape, y_val.shape)
     print("  Test: ", X_test.shape, y_test.shape)
     
-    # You may loop over different alphas; here we choose alpha = 1.0
     train_and_evaluate(X_train, X_val, X_test, y_train, y_val, y_test, alpha=1.0)
 
 if __name__ == "__main__":
