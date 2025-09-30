@@ -5,7 +5,19 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from data_load import load_data
+
+def load_energy_data():
+    data_path = os.path.join("data", "ENB2012_data.xlsx")
+    if not os.path.exists(data_path):
+        raise FileNotFoundError(
+            f"Dataset not found at {data_path}. Please download it from "
+            "https://archive.ics.uci.edu/ml/machine-learning-databases/00242/ENB2012_data.xlsx "
+            "and place it in the 'data/' folder."
+        )
+    df = pd.read_excel(data_path, engine="openpyxl")
+    X = df.iloc[:, 0:8]
+    Y = df.iloc[:, 8:10]
+    return X, Y
 
 def split_data(X: pd.DataFrame, y: pd.DataFrame, seed: int = 42):
     """
