@@ -6,7 +6,6 @@ Energy Efficiency Regression
 Contents:
 - run_regression.py: main script (download dataset, train models, evaluate, produce report.pdf in outputs/)
 - requirements.txt: Python dependencies
-- Makefile: simple commands
 - data/: where the dataset will be downloaded (or place ENB2012_data.xlsx here)
 - outputs/: generated outputs (metrics.json, models/, report.pdf, results_test.csv)
 
