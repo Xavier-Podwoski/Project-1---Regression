@@ -15,7 +15,7 @@ How to run:
    source venv/bin/activate
 
 2. Install dependencies:
-   pip install -r requirements.txt
+   pip install -r required_installs.txt
 
 3. Run the pipeline (downloads dataset from UCI):
    make run
