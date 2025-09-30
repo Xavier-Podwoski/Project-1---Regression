@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-def load_energy_data():
+def load_energy_data(data_path: str):
     data_path = os.path.join("data", "ENB2012_data.xlsx")
     if not os.path.exists(data_path):
         raise FileNotFoundError(
