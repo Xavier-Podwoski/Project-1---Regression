@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import numpy as np
 import pandas as pd
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from load_data import load_energy_data
-import os
+from data_load import load_data
 
 def split_data(X: pd.DataFrame, y: pd.DataFrame, seed: int = 42):
     """
