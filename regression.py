@@ -113,10 +113,10 @@ def evaluate_model(y_true, y_pred):
     r2 = 1 - (sum_residuals / sum_total)
     
     return {
-        'Mean Squared Error': mean_e,
-        'Root Mean Squared Error': root_mean_e,
-        'Mean Absolute Error': mean_absolute_e,
-        'R-squared': r2,
+        'Mean Squared Error Value': mean_e,
+        'Root Mean Squared Error Value': root_mean_e,
+        'Mean Absolute Error Value': mean_absolute_e,
+        'R-squared Value Value': r2,
     }
 
 #solve ridge , see code from book
@@ -199,11 +199,11 @@ def main():
         ridge_metric_value = evaluate_model(y_test, ridge_prediction)
         
         print(f"\nResults for {t_name}:")
-        print("Linear Regression Results:")
+        print("Linear Regression:")
         for metric, value in linear_metric_value.items():
             print(f"  {metric}: {value:.5f}")
         
-        print("Ridge Regression Results:")
+        print("Ridge Regression:")
         for metric, value in ridge_metric_value.items():
             print(f"  {metric}: {value:.5f}")
 
