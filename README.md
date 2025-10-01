@@ -7,7 +7,7 @@ Contents:
 - run_regression.py: main script (download dataset, train models, evaluate, produce report.pdf in outputs/)
 - requirements.txt: Python dependencies
 - data/: where the dataset will be downloaded (or place ENB2012_data.xlsx here)
-- outputs/: generated outputs (metrics.json, models/, report.pdf, results_test.csv)
+- outputs/: generated outputs (metrics.json, models/, 
 
 How to run:
 1. Create a Python virtual environment:
