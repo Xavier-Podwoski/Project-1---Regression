@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
-import os
 import pandas as pd
+import os
 
 class LinearRegression: # initalize the model for linear regression
     def __init__(self):
@@ -116,7 +116,7 @@ def evaluate_model(y_true, y_pred):
         'Mean Squared Error Value': mean_e,
         'Root Mean Squared Error Value': root_mean_e,
         'Mean Absolute Error Value': mean_absolute_e,
-        'R-squared Value Value': r2,
+        'R^2 Value': r2,
     }
 
 #solve ridge , see code from book
