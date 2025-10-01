@@ -3,11 +3,22 @@
 Energy Efficiency Regression
 ============================
 
-Contents:
-- run_regression.py: main script (download dataset, train models, evaluate, produce report.pdf in outputs/)
-- requirements.txt: Python dependencies
-- data/: where the dataset will be downloaded (or place ENB2012_data.xlsx here)
-- outputs/: generated outputs (metrics.json, models/, 
+Code Features:
+Linear Regression:
+   Uses the Normal Equation:
+      w = (X^T * X)^-1 * X^T * y
+
+Ridge Regression:
+   Adds L2 for overfitting prevention/reduction:
+      w = (X^T * X + lamda(I))^-1 * X^T * y
+
+Metrics Implemeneted and Solved:
+   - Mean Squared Error (MSE)
+   - Root Mean Squared Error (RMSE)
+   - Mean Absolute Error (MAE)
+   - R^2 Score
+
+Make sure that the dataset from UCI Machine Learning Repository – Energy Efficiency is downloaded
 
 How to run:
 1. Create a Python virtual environment:
@@ -23,7 +34,4 @@ How to run:
 If you don’t want auto-download, manually place ENB2012_data.xlsx into `data/` and run:
    python3 run_regression.py --no-download
 
-Outputs:
-- `outputs/metrics.json` : evaluation metrics
-- `outputs/results_test.csv` : test predictions
-- `outputs/models/` : trained models
+
