@@ -19,15 +19,11 @@ def load_energy_data(data_path: str):
     return X, Y
 
 def split_data(X: pd.DataFrame, y: pd.DataFrame, seed: int = 42):
-    """
-    Split X, y into train / validation / test sets in proportions 7:1:2.
-    Returns: X_train, X_val, X_test, y_train, y_val, y_test
-    """
     # First, split off test set (20% of full data)
     X_rem, X_test, y_rem, y_test = train_test_split(
         X, y, test_size=0.20, random_state=seed
     )
-    # Now X_rem is 80%; from that we take 1/8 (~0.125 of total) as validation,
+    # X_rem is 80%; from that we take 1/8 (~0.125 of total) as validation,
     # which is (0.125 / 0.80) = 0.15625 of X_rem
     val_fraction = 0.125 / 0.80  # = 0.15625
     X_train, X_val, y_train, y_val = train_test_split(
@@ -46,14 +42,6 @@ def print_metrics(y_true, y_pred, prefix: str = ""):
     print(f"{prefix}R^2: {r2:.4f}")
 
 def train_and_evaluate(X_train, X_val, X_test, y_train, y_val, y_test, alpha: float = 1.0):
-    """
-    Train linear regression and ridge regression models, evaluate them.
-    alpha: regularization strength for ridge.
-    """
-    # Optionally, you could standardize features. For simplicity, we skip scaling here,
-    # because linear/ridge regression in scikit-learn can handle unscaled features,
-    # though scaling often helps for ridge. You may choose to add StandardScaler.
-    
     # Train linear regression
     lin = LinearRegression()
     lin.fit(X_train, y_train)
