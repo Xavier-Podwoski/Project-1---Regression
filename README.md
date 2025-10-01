@@ -27,4 +27,3 @@ Outputs:
 - `outputs/metrics.json` : evaluation metrics
 - `outputs/results_test.csv` : test predictions
 - `outputs/models/` : trained models
-- `outputs/report.pdf` : generated report
