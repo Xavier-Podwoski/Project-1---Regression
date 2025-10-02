@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 
-class LinearRegression: # initalize the model for linear regression
+class LinearRegression: # Initalize the model for linear regression
     def __init__(self):
         self.weight = None
         self.bias = None
@@ -17,7 +17,6 @@ class LinearRegression: # initalize the model for linear regression
         xty = x_bias.T @ y
         w_all = np.linalg.solve(xtx, xty)
 
-        # Separate bias and weights from each other
         self.bias = w_all[0]
         self.weight = w_all[1:]
         return self
@@ -90,12 +89,9 @@ def data_split(x, y, t_r = 0.7, v_r = 0.1, te_r = 0.2, t_s = 7):
 
 #Data Normalization
 def data_normalization(x_train, x_val, x_test):
-    #calc mean and std
     mean = np.mean(x_train, axis=0)
     std = np.std(x_train, axis=0)
-    #handle 
     std = np.where(std == 0, 1, std)
-    #(x - mean) / std
     x_train = (x_train - mean) / std
     x_val = (x_val - mean) / std
     x_test = (x_test - mean) / std
@@ -124,34 +120,31 @@ def solve_ridge(x, y, lamdaMaxValue = 4500):
     #lists for ridge and df
     ridge_list = []
     df_list = []
-    #transpose
+    
     xtx = x.T @ x
     xty = x.T @ y
     
-    #single val 
     _, svd, _ = np.linalg.svd(x, full_matrices=False)
-    svd_sq = svd**2
+    svd_squared = svd**2
 
-    #loop
     for i in range(lamdaMaxValue + 1):
         #coefficient = (X^T*X + lamda(I))^-1 * X^T * Y
         reg_mat = np.identity(xtx.shape[0]) * i
         coeff = np.linalg.solve(xtx + reg_mat, xty)
         ridge_list.append(coeff)
-        df = np.sum(svd_sq / (svd_sq + i))
+        df = np.sum(svd_squared / (svd_squared + i))
         df_list.append(df)
         
     return ridge_list, df_list
 
 #main function
-def data_load():
-    # load data 
+def data_load(): 
     try:
-        #import 
+        #imports data
         df = pd.read_excel('ENB2012_data.xlsx')
         print(f"Dataset successfully loaded: {df.shape}")
         
-        # extract data 
+        # extracts data 
         f_colum = ['X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8']
         x = df[f_colum].values
         y1 = df['Y1'].values
@@ -163,11 +156,11 @@ def data_load():
         return x, y1, y2
         
     except FileNotFoundError:
-        print("The current file you are looking for does not exist here.cPlease download the file locally and store in data folder")
+        print("The current file you are looking for does not exist here. Please download the file locally and store in data folder.")
         return None, None, None
 
 def main():
-    # load data
+    # loads data
     x, y1, y2 = data_load()
     if x is None:
         return
