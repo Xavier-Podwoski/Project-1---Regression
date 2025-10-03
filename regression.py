@@ -166,38 +166,67 @@ def main():
         return
     
     # Data split
-    x_train, x_val, X_test, y1_train, y1_val, y1_test = data_split(x, y1)
+    x_train, x_val, x_test, y1_train, y1_val, y1_test = data_split(x, y1)
     _, _, _, y2_train, y2_val, y2_test = data_split(x, y2)
     
     # Data normalization
-    x_train_norm, x_val_norm, xtest_normalize = data_normalization(x_train, x_val, X_test)
+    x_train_norm, x_val_norm, x_test_norm = data_normalization(x_train, x_val, x_test)
     
-    # Data Training
+    # Data Training and Evaluation
     for t_name, y_train, y_val, y_test in [
         ('Y1 (Heating Load)', y1_train, y1_val, y1_test),
         ('Y2 (Cooling Load)', y2_train, y2_val, y2_test)
-        ]:
+    ]:
         print(f"\nTraining models for {t_name}")
         
         # Linear Regression
-        linear_regression_model = LinearRegression()
-        linear_regression_model.fit(x_train_norm, y_train)
-        linear_prediction = linear_regression_model.prediction(xtest_normalize)
-        linear_metric_value = evaluate_model(y_test, linear_prediction)
+        linear_regression_model = LinearRegression().fit(x_train_norm, y_train)
+        linear_train_pred = linear_regression_model.prediction(x_train_norm)
+        linear_val_pred   = linear_regression_model.prediction(x_val_norm)
+        linear_test_pred  = linear_regression_model.prediction(x_test_norm)
+
+        linear_train_metrics = evaluate_model(y_train, linear_train_pred)
+        linear_val_metrics   = evaluate_model(y_val, linear_val_pred)
+        linear_test_metrics  = evaluate_model(y_test, linear_test_pred)
         
         # Ridge Regression
-        ridge_regression_model = RidgeRegression(strength=1.0)
-        ridge_regression_model.fit(x_train_norm, y_train)
-        ridge_prediction = ridge_regression_model.prediction(xtest_normalize)
-        ridge_metric_value = evaluate_model(y_test, ridge_prediction)
-        
+        ridge_regression_model = RidgeRegression(strength=1.0).fit(x_train_norm, y_train)
+        ridge_train_pred = ridge_regression_model.prediction(x_train_norm)
+        ridge_val_pred   = ridge_regression_model.prediction(x_val_norm)
+        ridge_test_pred  = ridge_regression_model.prediction(x_test_norm)
+
+        ridge_train_metrics = evaluate_model(y_train, ridge_train_pred)
+        ridge_val_metrics   = evaluate_model(y_val, ridge_val_pred)
+        ridge_test_metrics  = evaluate_model(y_test, ridge_test_pred)
+
+        # Print Results
         print(f"\nResults for {t_name}:")
+
+        # Training
+        print("\nTraining Set Results:")
         print("Linear Regression:")
-        for metric, value in linear_metric_value.items():
+        for metric, value in linear_train_metrics.items():
             print(f"  {metric}: {value:.5f}")
-        
         print("Ridge Regression:")
-        for metric, value in ridge_metric_value.items():
+        for metric, value in ridge_train_metrics.items():
+            print(f"  {metric}: {value:.5f}")
+
+        # Validation
+        print("\nValidation Set Results:")
+        print("Linear Regression:")
+        for metric, value in linear_val_metrics.items():
+            print(f"  {metric}: {value:.5f}")
+        print("Ridge Regression:")
+        for metric, value in ridge_val_metrics.items():
+            print(f"  {metric}: {value:.5f}")
+
+        # Test
+        print("\nTest Set Results:")
+        print("Linear Regression:")
+        for metric, value in linear_test_metrics.items():
+            print(f"  {metric}: {value:.5f}")
+        print("Ridge Regression:")
+        for metric, value in ridge_test_metrics.items():
             print(f"  {metric}: {value:.5f}")
 
 if __name__ == "__main__":
